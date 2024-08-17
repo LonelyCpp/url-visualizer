@@ -1,2 +1,165 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	let urlInput =
+		'https://smallcase.page.link/?apn=com.smallcase.android&isi=1345309437&ibi=com.smallcase.smallcaseIos&link=https%3A%2F%2Fsmallcase.com%2Fsmallcase%2FPBDMO_0024%23FHOFPEVCGVBA%3Ffpvq%3DCOQZB_0024%26cebzb_pbqr%3DNYYGVZRUVG%26cyna_qhengvba%3D1l%26choyvfure%3Dchoyvfureqrzb%26utm_source%3Dpublisher_subscription_management%26utm_medium%3Dwhatsapp%26utm_campaign%3Dsubs_renewal_reminder_1_day_before_grace_period_end_offer';
+
+	function parseURL(url: string) {
+		try {
+			return new URL(url);
+		} catch (error) {
+			return undefined;
+		}
+	}
+
+	function getTableData(inp: URL) {
+		return [
+			{ name: 'Protocol', value: inp.protocol },
+			{ name: 'Host', value: inp.host },
+			{ name: 'Port', value: inp.port },
+			{ name: 'Path', value: inp.pathname },
+			{ name: 'Parameters', value: inp.search },
+			{ name: 'Hash', value: inp.hash }
+		];
+	}
+
+	function getQueyStringData(inp: URL) {
+		const params = Object.fromEntries(inp.searchParams.entries());
+		return Object.keys(params).map((key) => ({ name: key, value: params[key] }));
+	}
+
+	$: urlObject = parseURL(urlInput);
+	$: urlPartsData = urlObject ? getTableData(urlObject) : [];
+	$: queryPartsData = urlObject ? getQueyStringData(urlObject) : [];
+</script>
+
+<div>
+	<div class="hero">
+		<h1 class="title">See what's inside your web link</h1>
+		<input type="text" class="url-input" bind:value={urlInput} />
+		<div class="url-validity-badge">
+			<span class="validity-badge">
+				{#if urlObject}
+					✅ Valid URL
+				{:else if urlInput.length === 0}
+					Enter a URL!
+				{:else}
+					❌ Invalid URL
+				{/if}
+			</span>
+		</div>
+	</div>
+
+	<div class="url-content-container">
+		<div class="table-container content-divider">
+			<h3>Contents</h3>
+			<table cellspacing="0">
+				<tr>
+					<th class="name-table-header">Name</th>
+					<th>Value</th>
+				</tr>
+				{#each urlPartsData as part}
+					<tr>
+						<td>{part.name}</td>
+						{#if part.value}
+							<td>
+								{part.value}
+							</td>
+						{:else}
+							<td class="not-present">(not present)</td>
+						{/if}
+					</tr>
+				{/each}
+			</table>
+		</div>
+
+		{#if queryPartsData?.length > 0}
+			<div class="table-container content-divider">
+				<h3>Parameters</h3>
+
+				<table>
+					<tr>
+						<th class="name-table-header">Name</th>
+						<th>Value</th>
+					</tr>
+					{#each queryPartsData as part}
+						<tr>
+							<td>{part.name}</td>
+							<td>{part.value}</td>
+						</tr>
+					{/each}
+				</table>
+			</div>
+		{/if}
+	</div>
+</div>
+
+<style>
+	.hero {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		background-color: #fafff5;
+	}
+
+	.title {
+		color: #2c5530;
+		font-size: 4rem;
+	}
+
+	.url-input {
+		width: 40%;
+		padding: 0.5rem;
+		border: 1px solid #ccc;
+		border-radius: 0.5rem;
+		min-width: 400px;
+		font-size: large;
+	}
+
+	.url-content-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.url-validity-badge {
+		padding: 24px;
+	}
+
+	.table-container {
+		width: 50%;
+		min-width: 400px;
+		overflow: scroll;
+	}
+
+	.content-divider {
+		margin-bottom: 24px;
+	}
+
+	table {
+		width: 100%;
+	}
+
+	th,
+	td {
+		border-collapse: collapse;
+		text-align: left;
+		padding: 0.5rem;
+		max-width: 0px;
+		overflow: scroll;
+		white-space: nowrap;
+	}
+
+	tr {
+		background-color: #fafff5;
+	}
+
+	tr:nth-child(1) {
+		background-color: #7fb069;
+	}
+
+	.name-table-header {
+		width: 30%;
+	}
+</style>
