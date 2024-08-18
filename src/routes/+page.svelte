@@ -1,6 +1,5 @@
 <script lang="ts">
-	let urlInput =
-		'https://smallcase.page.link/?apn=com.smallcase.android&isi=1345309437&ibi=com.smallcase.smallcaseIos&link=https%3A%2F%2Fsmallcase.com%2Fsmallcase%2FPBDMO_0024%23FHOFPEVCGVBA%3Ffpvq%3DCOQZB_0024%26cebzb_pbqr%3DNYYGVZRUVG%26cyna_qhengvba%3D1l%26choyvfure%3Dchoyvfureqrzb%26utm_source%3Dpublisher_subscription_management%26utm_medium%3Dwhatsapp%26utm_campaign%3Dsubs_renewal_reminder_1_day_before_grace_period_end_offer';
+	let urlInput = '';
 
 	function parseURL(url: string) {
 		try {
@@ -48,48 +47,50 @@
 		</div>
 	</div>
 
-	<div class="url-content-container">
-		<div class="table-container content-divider">
-			<h3>Contents</h3>
-			<table cellspacing="0">
-				<tr>
-					<th class="name-table-header">Name</th>
-					<th>Value</th>
-				</tr>
-				{#each urlPartsData as part}
-					<tr>
-						<td>{part.name}</td>
-						{#if part.value}
-							<td>
-								{part.value}
-							</td>
-						{:else}
-							<td class="not-present">(not present)</td>
-						{/if}
-					</tr>
-				{/each}
-			</table>
-		</div>
-
-		{#if queryPartsData?.length > 0}
+	{#if urlObject}
+		<div class="url-content-container">
 			<div class="table-container content-divider">
-				<h3>Parameters</h3>
-
-				<table>
+				<h3>Contents</h3>
+				<table cellspacing="0">
 					<tr>
 						<th class="name-table-header">Name</th>
 						<th>Value</th>
 					</tr>
-					{#each queryPartsData as part}
+					{#each urlPartsData as part}
 						<tr>
 							<td>{part.name}</td>
-							<td>{part.value}</td>
+							{#if part.value}
+								<td>
+									{part.value}
+								</td>
+							{:else}
+								<td class="not-present">(not present)</td>
+							{/if}
 						</tr>
 					{/each}
 				</table>
 			</div>
-		{/if}
-	</div>
+
+			{#if queryPartsData?.length > 0}
+				<div class="table-container content-divider">
+					<h3>Parameters</h3>
+
+					<table>
+						<tr>
+							<th class="name-table-header">Name</th>
+							<th>Value</th>
+						</tr>
+						{#each queryPartsData as part}
+							<tr>
+								<td>{part.name}</td>
+								<td>{part.value}</td>
+							</tr>
+						{/each}
+					</table>
+				</div>
+			{/if}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -106,6 +107,12 @@
 	.title {
 		color: #2c5530;
 		font-size: 4rem;
+	}
+
+	@media (max-width: 1000px) {
+		.title {
+			font-size: 2rem;
+		}
 	}
 
 	.url-input {
@@ -161,5 +168,9 @@
 
 	.name-table-header {
 		width: 30%;
+	}
+
+	.not-present {
+		opacity: 0.2;
 	}
 </style>
