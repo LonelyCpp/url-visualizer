@@ -1,7 +1,11 @@
+<script>
+	import { base } from '$app/paths';
+</script>
+
 <div class="cover">
 	<nav class="nav">
-		<a href="/">Home</a>
-		<a href="/learn">Learn</a>
+		<a href={`${base}/`}>Home</a>
+		<a href={`${base}/learn`}>Learn</a>
 	</nav>
 	<slot></slot>
 </div>
