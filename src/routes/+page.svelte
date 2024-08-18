@@ -110,6 +110,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: #fafff5;
+		padding: 12px;
 	}
 
 	.title {
@@ -117,19 +118,19 @@
 		font-size: 4rem;
 	}
 
-	@media (max-width: 1000px) {
-		.title {
-			font-size: 2rem;
-		}
-	}
-
 	.url-input {
 		width: 40%;
 		padding: 0.5rem;
 		border: 1px solid #ccc;
 		border-radius: 0.5rem;
-		min-width: 400px;
+		min-width: 300px;
 		font-size: large;
+	}
+
+	@media (max-width: 1000px) {
+		.title {
+			font-size: 2rem;
+		}
 	}
 
 	.url-content-container {
