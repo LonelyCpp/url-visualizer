@@ -1,3 +1,12 @@
+<svelte:head>
+	<title>What's a URL?</title>
+	<meta
+		name="description"
+		content="URLs (Uniform Resource Locators) are the building blocks of the web. In this article, we'll break down the key components of a URL, explaining each part and its
+				purpose."
+	/>
+</svelte:head>
+
 <div>
 	<div class="hero">
 		<h1 class="title">What's a URL?</h1>

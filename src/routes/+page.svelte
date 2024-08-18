@@ -30,6 +30,14 @@
 	$: queryPartsData = urlObject ? getQueyStringData(urlObject) : [];
 </script>
 
+<svelte:head>
+	<title>URL Visualizer</title>
+	<meta
+		name="description"
+		content="URLs (Uniform Resource Locators) are the building blocks of the web. This site helps you visualize and understand how they work."
+	/>
+</svelte:head>
+
 <div>
 	<div class="hero">
 		<h1 class="title">See what's inside your web link</h1>
