@@ -6,6 +6,7 @@
 	<nav class="nav">
 		<a href={`${base}/`}>Home</a>
 		<a href={`${base}/learn`}>Learn</a>
+		<a href={`https://github.com/LonelyCpp/url-visualizer`} target="_blank">Github</a>
 	</nav>
 	<slot></slot>
 </div>
@@ -16,7 +17,6 @@
 	}
 	.nav {
 		display: flex;
-
 		align-items: center;
 		padding: 1rem;
 		background-color: #fafff5;
@@ -26,5 +26,7 @@
 		padding: 0.5rem;
 		text-decoration: none;
 		color: black;
+		text-decoration: underline;
+		text-underline-offset: 8px;
 	}
 </style>
